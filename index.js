@@ -25,6 +25,7 @@ async function run() {
         const teacherCollcetion = database.collection('teachers');
      const jobHolderCollcetion = database.collection('jobholder');
         const studentCollcetion = database.collection('student');
+        const noticeCollection=database.collection('notice')
 
 
 
@@ -51,34 +52,34 @@ async function run() {
         
         //post user data
 
-        // app.post('/studentdata', async (req, res) => {
-        //     console.log(req.body);
-        //     const name = req.body.name;
-        //     const email = req.body.email;
-        //     const image = req.files.image;
-        //     const id=req.body.id;
-        //     const session=req.body.session;
-        //     const blood=req.body.blood;
-        //     const skill=req.body.skill;
-        //         //console.log(req.body);
-        //     const picData = image.data;
-        //     const encodedPic = picData.toString('base64')
-        //     const imageBuffer = Buffer.from(encodedPic, 'base64')
-        //     const doctor = {
-        //         name,
-        //         email,
-        //         image: imageBuffer,
-        //         id,
-        //         session,
-        //         blood,
-        //         skill
-        //     }
-        //     const result = await studentCollcetion.insertOne(doctor);
+         app.post('/studentdata', async (req, res) => {
+             console.log(req.body);
+             const name = req.body.name;
+             const email = req.body.email;
+             const image = req.files.image;
+             const id=req.body.id;
+             const session=req.body.session;
+             const blood=req.body.blood;
+             const skill=req.body.skill;
+                 //console.log(req.body);
+             const picData = image.data;
+             const encodedPic = picData.toString('base64')
+             const imageBuffer = Buffer.from(encodedPic, 'base64')
+             const doctor = {
+                 name,
+                 email,
+                 image: imageBuffer,
+                 id,
+                 session,
+                 blood,
+                 skill
+             }
+             const result = await studentCollcetion.insertOne(doctor);
 
-        //    console.log(result)
-        //     res.json("result")
+            console.log(result)
+             res.json("result")
 
-        // })
+         })
 
         // get student data
         app.get('/members',async(req,res)=>{
@@ -132,11 +133,50 @@ async function run() {
                      console.log(result)
         })
 
-        //search student info
-       
+        //post notice
+        app.post('/notice', async (req, res) => {
+            //const name = req.body.name;
+            //const email = req.body.email;
+            const image = req.files.image;
+            const picData = image.data;
+            const encodedPic = picData.toString('base64')
+            const imageBuffer = Buffer.from(encodedPic, 'base64')
+            const noticeData = {
+                //name,
+                //email,
+                image: imageBuffer
+            }
+            const result = await  noticeCollection.insertOne(noticeData);
+
+            console.log(result)
+            res.json(result)
+
+        })
+        //get notice
+        
+        app.get('/notice', async(req,res)=>{
+            const cursor = noticeCollection.find({})
+            const result = await cursor.toArray()
+            res.send(result)
+        })
 
 
+        //post jobholder data
+        app.post('/addjobholder', async(req,res)=>{
+            const user = req.body;
+            console.log(req.body)
+             const result = await  jobHolderCollcetion.insertOne(user)
+             console.log(result)
+             res.json("Student Data added successfully");
+        })
 
+
+        //get jobholder data
+        app.get('/jobholder', async(req,res)=>{
+            const cursor = jobHolderCollcetion.find({})
+            const result = await cursor.toArray()
+            res.send(result)
+        })
 
 
 
