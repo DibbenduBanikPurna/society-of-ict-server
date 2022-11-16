@@ -13,7 +13,8 @@ app.use(cors())
 app.use(fileUpload())
 
 //mongodb uri
-const uri = "mongodb+srv://purna:2470purna@cluster0.z2een.mongodb.net/?retryWrites=true&w=majority";
+//const uri = "mongodb+srv://purna:2470purna@cluster0.z2een.mongodb.net/?retryWrites=true&w=majority";
+const uri="mongodb+srv://mehedi:1245mehdi@cluster0.kvk4oud.mongodb.net/?retryWrites=true&w=majority"
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
